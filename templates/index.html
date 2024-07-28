@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <h2>
+        {{ user.username }}'s Portfolio
+    </h2>
+    <p>Current Cash: {{ user.cash | usd }}</p>
+    <p>Grand Total: {{ grand_total | usd }}</p>
+    <div class="stocktable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Stock</th>
+                    <th>Shares</th>
+                    <th>Current Price</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.stock }} ({{ stock.symbol }})</td>
+                        <td>{{ stock.quantity }}</td>
+                        <td>{{ stock.current_price | usd }}</td>
+                        <td>{{ (stock.quantity * stock.current_price) | usd }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <form method="POST"><button class="btn btn-success btn-sm" type="submit">Click to earn money!</button></form>
+{% endblock %}
